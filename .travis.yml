@@ -23,6 +23,9 @@ script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
+  # execute the role againt localhost
+  - ansible-playbook -i tests/inventory tests/test.yml
+
 after_script:
   - htop --version
   - htop --help
