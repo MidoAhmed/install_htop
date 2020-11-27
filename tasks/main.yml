@@ -1,15 +1,29 @@
 ---
 # tasks file for install_htop
+
+- name: Distribution
+  debug: 
+    msg: "{{ hostvars[inventory_hostname].ansible_distribution }}"
+- name: Distribution version
+  debug: 
+    msg: "{{ hostvars[inventory_hostname].ansible_distribution_version }}"
+- name: Distribution major version    
+  debug: 
+    msg: "{{ hostvars[inventory_hostname].ansible_distribution_major_version }}"
+
+    
 - name: install epel-release (CentOS)
+  become: true
   yum:
     name: epel-release
-    state: present
+    state: '{{state}}'
     update_cache: yes
   when: ansible_distribution == "CentOS"
 
 - name: install htop
+  become: true
   package:
     name: htop
-    state: present
+    state: '{{state}}'
     update_cache: yes
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "CentOS"
