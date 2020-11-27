@@ -4,8 +4,6 @@ python:
   - "3.6"      # current default Python on Travis CI
   - "3.8"
 
-# Use the new container infrastructure
-sudo: false
 
 # Install ansible
 addons:
@@ -26,6 +24,10 @@ install:
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+
+after_script:
+  - htop --version
+  - htop --help
 
 # notifications:
 #   webhooks: https://galaxy.ansible.com/api/v1/notifications/
